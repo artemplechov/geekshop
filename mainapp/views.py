@@ -15,7 +15,7 @@ def index(request):
 
 
 def products(request):
-    file_path = os.path.join(MODULE_DIR, 'fixtures/products.json')
+    file_path = os.path.join(MODULE_DIR, 'fixtures/goods.json')
     context = {
         'title': 'geekshop - каталог',
         # 'products': [
