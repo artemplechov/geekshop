@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import json
 import os
+from mainapp.models import ProductCategory, Product
 
 MODULE_DIR = os.path.dirname(__file__)
 
@@ -44,6 +45,9 @@ def products(request):
         #     'description': 'Легкая эластичная ткань сирсакер Фактурная ткань.',
         #    'pic': 'vendor/img/products/Dark-blue-wide-leg-ASOs-DESIGN-trousers.png'},
         # ],
+        'categories': ProductCategory.objects.all(),
     }
-    context['products'] = json.load(open(file_path, encoding='utf-8'))
+    # context['products'] = json.load(open(file_path, encoding='utf-8'))
+    context['products'] = Product.objects.all()
     return render(request, 'mainapp/products.html', context)
+
