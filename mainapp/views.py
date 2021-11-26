@@ -18,7 +18,7 @@ def index(request):
 def products(request):
     file_path = os.path.join(MODULE_DIR, 'fixtures/goods.json')
     context = {
-        'title': 'geekshop - каталог',
+        'title': 'Geekshop | Каталог',
         # 'products': [
         #    {'name': 'Худи черного цвета с монограммами adidas Originals',
         #     'price': '6 090,00 руб.',
