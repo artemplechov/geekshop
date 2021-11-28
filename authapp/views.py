@@ -1,9 +1,9 @@
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from authapp.forms import UserLoginForm, UserRegisterForm
+from authapp.forms import UserLoginForm, UserRegisterForm, UserProfilerForm
 
 
 # Create your views here.
@@ -17,8 +17,8 @@ def login(request):
             if user.is_active:
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('index'))
-        else:
-            print(form.errors)
+        # else:
+        #     print(form.errors)    //вывод ошибок в консоль
     else:
         form = UserLoginForm()
     context = {
@@ -33,9 +33,10 @@ def register(request):
         form = UserRegisterForm(data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,'Вы успешно зарегистрировались')
             return HttpResponseRedirect(reverse('authapp:login'))
-        else:
-            print(form.errors)
+        # else:
+        #     print(form.errors)   //вывод ошибок в консоль
     else:
         form = UserRegisterForm()
 
@@ -44,6 +45,20 @@ def register(request):
         'form': form
     }
     return render(request, 'authapp/register.html', context)
+
+
+def profile(request):
+    if request.method == 'POST':
+        form = UserProfilerForm(instance=request.user,data=request.POST,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Профиль успешно обновлен')
+
+    context = {
+        'title': 'Geekshop | Профайл',
+        'form': UserProfilerForm(instance=request.user)
+    }
+    return render(request,'authapp/profile.html',context)
 
 
 def logout(request):
