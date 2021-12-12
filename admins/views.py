@@ -5,9 +5,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.urls import reverse
 
-from admins.forms import UserAdminRegisterForm, UserAdminProfileForm
+from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, ProductAdminRegisterForm
 from authapp.models import User
-
+from mainapp.models import Product
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -22,6 +22,18 @@ def admin_users(request):
         'users': User.objects.all()
     }
     return render(request,'admins/admin-users-read.html',context)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_products(request):
+    context = {
+        'products': Product.objects.all()
+    }
+    return render(request,'admins/admin-products-read.html',context)
+
+
+
+
 
 
 
@@ -39,6 +51,22 @@ def admin_users_create(request):
         'form': form
     }
     return render(request,'admins/admin-users-create.html',context)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_products_create(request):
+    if request.method == 'POST':
+        form = ProductAdminRegisterForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('admins:admin_products'))
+    else:
+        form = ProductAdminRegisterForm()
+    context = {
+        'title': 'Geekshop - Админ | Регистрация',
+        'form': form
+    }
+    return render(request,'admins/admin-products-create.html',context)
 
 
 
