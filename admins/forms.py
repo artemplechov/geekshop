@@ -1,10 +1,16 @@
 from django import forms
+<<<<<<< HEAD
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
 from authapp.forms import UserRegisterForm, UserProfilerForm
 from authapp.models import User
 from mainapp.models import Product
+=======
+
+from authapp.forms import UserRegisterForm, UserProfilerForm
+from authapp.models import User
+>>>>>>> origin/lesson_7
 
 
 class UserAdminRegisterForm(UserRegisterForm):
@@ -22,6 +28,7 @@ class UserAdminRegisterForm(UserRegisterForm):
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
 
 
+<<<<<<< HEAD
 class ProductAdminRegisterForm(ModelForm):
    #image = forms.ImageField(widget=forms.FileInput(), required=False)
     class Meta:
@@ -39,6 +46,8 @@ class ProductAdminRegisterForm(ModelForm):
             field.widget.attrs['class'] = 'form-control py-4'
         #self.fields['image'].widget.attrs['class'] = 'custom-file-input'
 
+=======
+>>>>>>> origin/lesson_7
 
 class UserAdminProfileForm(UserProfilerForm):
     email = forms.EmailField(widget=forms.EmailInput())
