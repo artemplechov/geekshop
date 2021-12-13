@@ -10,19 +10,21 @@
                     <div class="form-row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="small mb-1" for="{{ form.name.id_for_label }}">Название</label>
+                                <label class="small mb-1" for="{{ form.name.id_for_label }}">Название</label> <br>
                                {{ form.name }}
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                    </div>
+                    <div class="form-row">
+                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label class="small mb-1" for="{{ form.description.id_for_label }}">Описание</label>
+                                <label class="small mb-1" for="{{ form.description.id_for_label }}">Описание</label><br>
                                 {{ form.description }}
                             </div>
                         </div>
                     </div>
                    <div class="form-row mb-2">
-                        <div class="col-lg-12">
+                        <div class="col-lg-4">
                             <div class="custom-file">
                                   {{ form.image }}
                                 <label class="custom-file-label" for="{{ form.image.id_for_label }}">Выберите изображение</label>
@@ -31,17 +33,21 @@
                     </div>
                     <div class="form-row">
                         <div class="col-lg-5">
-                            <label class="small mb-1" for="{{ form.price.id_for_label }}">Цена</label>
+                            <label class="small mb-1" for="{{ form.price.id_for_label }}">Цена</label><br>
                            {{ form.price }}
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="col-lg-5">
                             <div class="form-group">
-                                <label class="small mb-1" for="{{ form.quantity.id_for_label }}">Кол-во</label>
+                                <label class="small mb-1" for="{{ form.quantity.id_for_label }}">Кол-во</label><br>
                                 {{ form.quantity }}
                             </div>
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="col-lg-2">
-                            <label class="small mb-1" for="{{ form.category.id_for_label }}">Категория</label>
+                            <label class="small mb-1" for="{{ form.category.id_for_label }}">Категория</label><br>
                             {{ form.category }}
                         </div>
                     </div>

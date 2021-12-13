@@ -1,16 +1,11 @@
 from django import forms
-<<<<<<< HEAD
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 
 from authapp.forms import UserRegisterForm, UserProfilerForm
 from authapp.models import User
 from mainapp.models import Product
-=======
 
-from authapp.forms import UserRegisterForm, UserProfilerForm
-from authapp.models import User
->>>>>>> origin/lesson_7
 
 
 class UserAdminRegisterForm(UserRegisterForm):
@@ -28,27 +23,6 @@ class UserAdminRegisterForm(UserRegisterForm):
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
 
 
-<<<<<<< HEAD
-class ProductAdminRegisterForm(ModelForm):
-   #image = forms.ImageField(widget=forms.FileInput(), required=False)
-    class Meta:
-        model = Product
-        fields = ('name', 'description', 'price', 'quantity', 'category')
-
-    def __init__(self, *args, **kwargs):
-        super(ProductAdminRegisterForm, self).__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs['placeholder'] = 'Введите название'
-        self.fields['description'].widget.attrs['placeholder'] = 'Описание'
-        self.fields['price'].widget.attrs['placeholder'] = 'Цена'
-        self.fields['quantity'].widget.attrs['placeholder'] = 'Кол-во'
-        self.fields['category'].widget.attrs['placeholder'] = 'Категория'
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control py-4'
-        #self.fields['image'].widget.attrs['class'] = 'custom-file-input'
-
-=======
->>>>>>> origin/lesson_7
-
 class UserAdminProfileForm(UserProfilerForm):
     email = forms.EmailField(widget=forms.EmailInput())
     username = forms.CharField(widget=forms.TextInput())
@@ -60,3 +34,17 @@ class UserAdminProfileForm(UserProfilerForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
+
+
+
+class ProductAdminRegisterForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'image','price', 'quantity', 'category']
+
+
+class ProductAdminProfileForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('name', 'description', 'image','price', 'quantity', 'category')
+
