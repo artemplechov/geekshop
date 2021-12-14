@@ -4797,6 +4797,13 @@ input[type=button].btn-block {
     width: 100%;
 }
 
+.card-img-small {
+    flex-shrink: 0;
+    width: 90%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+}
+
 .card-img,
 .card-img-top {
     border-top-left-radius: calc(0.25rem - 1px);
