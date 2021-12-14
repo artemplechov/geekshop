@@ -5,9 +5,11 @@ from django.shortcuts import render
 # Create your views here.
 from django.urls import reverse
 
-from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, ProductAdminRegisterForm, ProductAdminProfileForm
+from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, ProductAdminMainForm, \
+    ProductCategoryMainForm  # , ProductAdminRegisterForm, ProductAdminProfileForm, \
+
 from authapp.models import User
-from mainapp.models import Product
+from mainapp.models import Product, ProductCategory
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -85,12 +87,12 @@ def admin_products(request):
 @user_passes_test(lambda u: u.is_superuser)
 def admin_products_create(request):
     if request.method == 'POST':
-        form = ProductAdminRegisterForm(data=request.POST, files=request.FILES)
+        form = ProductAdminMainForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('admins:admin_products'))
     else:
-        form = ProductAdminRegisterForm()
+        form = ProductAdminMainForm()
     context = {
         'title': 'Geekshop - Продукт | Регистрация',
         'form': form
@@ -103,12 +105,12 @@ def admin_products_create(request):
 def admin_products_update(request,pk):
     product_select = Product.objects.get(pk=pk)
     if request.method == 'POST':
-        form = ProductAdminProfileForm(data=request.POST, instance=product_select,files=request.FILES)
+        form = ProductAdminMainForm(data=request.POST, instance=product_select,files=request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('admins:admin_products'))
     else:
-        form = ProductAdminProfileForm(instance=product_select)
+        form = ProductAdminMainForm(instance=product_select)
     context = {
         'title': 'Geekshop - Продукт | Обновление',
         'form': form,
@@ -124,3 +126,55 @@ def admin_products_delete(request,pk):
         product = Product.objects.get(pk=pk)
         product.delete()
    return HttpResponseRedirect(reverse('admins:admin_products'))
+
+
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_products_categories(request):
+    context = {
+        'products_categories': ProductCategory.objects.all()
+    }
+    return render(request,'admins/admin-products-categories-read.html',context)
+
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_products_categories_create(request):
+    if request.method == 'POST':
+        form = ProductCategoryMainForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('admins:admin_products_categories'))
+    else:
+        form = ProductCategoryMainForm()
+    context = {
+        'title': 'Geekshop - Категория | Регистрация',
+        'form': form
+    }
+    return render(request,'admins/admin-products-categories-create.html',context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_products_categories_update(request,pk):
+    product_category_select = ProductCategory.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = ProductCategoryMainForm(data=request.POST, instance=product_category_select,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('admins:admin_products_categories'))
+    else:
+        form = ProductCategoryMainForm(instance=product_category_select)
+    context = {
+        'title': 'Geekshop - Категории | Обновление',
+        'form': form,
+        'product_category_select': product_category_select
+    }
+    return render(request,'admins/admin-products-categories-update-delete.html',context)
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_products_categories_delete(request,pk):
+   if request.method=='POST':
+        product_category = ProductCategory.objects.get(pk=pk)
+        product_category.delete()
+   return HttpResponseRedirect(reverse('admins:admin_products_categories'))

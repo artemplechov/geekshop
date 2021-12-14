@@ -4,8 +4,7 @@ from django.forms import ModelForm
 
 from authapp.forms import UserRegisterForm, UserProfilerForm
 from authapp.models import User
-from mainapp.models import Product
-
+from mainapp.models import Product, ProductCategory
 
 
 class UserAdminRegisterForm(UserRegisterForm):
@@ -37,14 +36,20 @@ class UserAdminProfileForm(UserProfilerForm):
 
 
 
-class ProductAdminRegisterForm(ModelForm):
+class ProductAdminMainForm(ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'description', 'image','price', 'quantity', 'category']
 
 
-class ProductAdminProfileForm(ModelForm):
+#class ProductAdminProfileForm(ModelForm):
+ #   class Meta:
+  #      model = Product
+   #     fields = ('name', 'description', 'image','price', 'quantity', 'category')
+
+class ProductCategoryMainForm(ModelForm):
     class Meta:
-        model = Product
-        fields = ('name', 'description', 'image','price', 'quantity', 'category')
+        model = ProductCategory
+        fields = ['name','description']
+
 
